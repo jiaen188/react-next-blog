@@ -1,0 +1,190 @@
+const colors = {
+  white: '#fff',
+  black: '#000',
+  current: 'initial',
+  transparent: 'transparent',
+  'blue-lightest': '#f3faff',
+  'blue-light': '#d5e9fe',
+  'blue-default': '#0578fe',
+  'blue-dark': '#035cda',
+  'green-lightest': '#f5fbee',
+  'green-light': '#beeba0',
+  'green-default': '#4dc126',
+  'orange-lightest': '#fffbeb',
+  'orange-light': '#fee799',
+  'orange-default': '#ffaa00',
+  'red-lightest': '#fff7f2',
+  'red-light': '#ffc6b3',
+  'red-default': '#ff3330',
+  'gray-lightest': '#c7cacd',
+  'gray-light': '#a1acb9',
+  'gray-default': '#7b8693',
+  'gray-dark': '#4d5865',
+  'gray-darkest': '#1f2a37',
+  'other-400': '#f9faff',
+  'other-300': '#f3f4f8',
+  'other-200': '#edf1f5',
+  'other-100': '#dee2e6',
+  'other-50': '#f5f8fa',
+  'green-100': '#00c735',
+  'blue-100': '#40a9ff',
+}
+
+const space = {
+  none: '0',
+  1: '1px',
+  2: '0.125rem',
+  3: '0.1875rem',
+  4: '0.25rem',
+  5: '0.3125rem',
+  6: '0.375rem',
+  8: '0.5rem',
+  10: '0.625rem',
+  12: '0.75rem',
+  13: '0.8125rem',
+  14: '0.875rem',
+  16: '1rem',
+  17: '1.0625rem',
+  18: '1.125rem',
+  20: '1.25rem',
+  22: '1.375rem',
+  24: '1.5rem',
+  25: '1.5625rem',
+  26: '1.625rem',
+  28: '1.75rem',
+  30: '1.875rem',
+  32: '2rem',
+  36: '2.25rem',
+  38: '2.375rem',
+  40: '2.5rem',
+  42: '2.625rem',
+  44: '2.75rem',
+  48: '3rem',
+  50: '3.125rem',
+  58: '3.625rem',
+  60: '3.75rem',
+  64: '4rem',
+  66: '4.125rem',
+  80: '5rem',
+  82: '5.125rem',
+  105: '6.5625rem',
+  110: '6.875rem',
+  120: '7.5rem',
+  170: '10.625rem',
+  260: '16.25rem',
+  282: '17.625rem',
+  286: '17.875rem',
+  414: '25.875rem',
+  586: '36.625rem',
+  686: '42.875rem',
+  750: '46.875rem',
+  auto: 'auto',
+}
+
+module.exports = {
+  prefix: 'tw-',
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    textColor: colors,
+    backgroundColor: colors,
+    borderColor: colors,
+    borderWidth: space,
+    divideColor: colors,
+    lineClamp: {
+      1: '1',
+      2: '2',
+    },
+    width: { full: '100%', screen: '100vh', ...space },
+    minWidth: {
+      auto: 'auto',
+    },
+    maxHeight: { fit: 'fit-content', auto: 'auto', none: 'none', ...space },
+    minHeight: {
+      screen: '100vh',
+    },
+    height: { full: '100%', screen: '100vh', fit: 'fit-content', ...space },
+    margin: space,
+    padding: space,
+    fontSize: space,
+    lineHeight: {
+      ...space,
+      'normal': 'normal'
+    },
+    borderRadius: { full: '100%', ...space },
+    screens: {
+      md: { max: '768px' },
+    },
+    boxShadow: {
+      1: '0px 4px 12px 0px rgba(0, 0, 0, 0.06)',
+      2: '0px -4px 12px 0px rgba(0, 0, 0, 0.06);'
+    },
+    spacing: { ...space, 0: 0, '1/2': '50%' },
+    extend: {
+      backgroundImage: {
+        logo: "url('https://img1.dxycdn.com/2022/0228/880/7355641777078874353-2.png')",
+        slogan:
+          "url('https://img1.dxycdn.com/2022/0301/094/7420368292506894353-2.png')",
+        playIcon: "url('https://img1.dxycdn.com/2022/0328/154/4070874198283400453-2.png')"
+      },
+      zIndex: {
+        2: 2,
+        3: 3,
+        1000: '1000',
+        1001: '1001',
+        1002: '1002',
+        1003: '1003',
+        1004: '1004',
+        1005: '1005',
+        1006: '1006',
+        1007: '1007',
+        1008: '1008',
+        1009: '1009',
+        1010: '1010',
+        9999: '9999',
+      },
+    },
+  },
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+    require('tailwindcss/plugin')(function ({ addUtilities }) {
+      const newUtilities = {
+        '.safe-constant-top': {
+          paddingTop: 'constant(safe-area-inset-top)',
+        },
+        '.safe-env-top': {
+          paddingTop: 'env(safe-area-inset-top)',
+        },
+        '.safe-constant-bottom': {
+          paddingBottom: 'constant(safe-area-inset-bottom)',
+        },
+        '.safe-env-bottom': {
+          paddingBottom: 'env(safe-area-inset-bottom)',
+        },
+        '.safe-constant-left': {
+          paddingLeft: 'constant(safe-area-inset-left)',
+        },
+        '.safe-env-left': {
+          paddingLeft: 'env(safe-area-inset-left)',
+        },
+        '.safe-constant-right': {
+          paddingLeft: 'constant(safe-area-inset-right)',
+        },
+        '.safe-env-right': {
+          paddingRight: 'env(safe-area-inset-right)',
+        },
+      }
+      addUtilities(newUtilities)
+    }),
+  ],
+  corePlugins: {
+    backdropOpacity: false,
+    backgroundOpacity: false,
+    borderOpacity: false,
+    divideOpacity: false,
+    ringOpacity: false,
+    textOpacity: false,
+  },
+}
