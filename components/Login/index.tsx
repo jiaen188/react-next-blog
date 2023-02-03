@@ -6,8 +6,7 @@ interface IProps {
   onClose: Function;
 }
 
-const Login = ({isShow = false, onClose}: IProps) => {
-
+const Login = ({isShow = false, onClose}: IProps) => { 
 
   const [form, setForm] = useState({
     phone: '',
