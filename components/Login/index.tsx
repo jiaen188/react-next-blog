@@ -1,5 +1,6 @@
-import {useState} from 'react';
+import {ChangeEvent, useState} from 'react';
 import styles from './index.module.scss';
+import CountDown from 'components/CountDown';
 
 interface IProps {
   isShow: boolean;
@@ -13,12 +14,22 @@ const Login = ({isShow = false, onClose}: IProps) => {
     verify: ''
   });
 
-  const handleClose = () => {
+  const [isShowVerifyCode, setIsShowVerifyCode] = useState(false);
 
+  const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]: value
+    })
+  }
+
+  const handleClose = () => {
+    onClose && onClose();
   }
 
   const handleGetVerifyCode = () => {
-
+    setIsShowVerifyCode(true);
   }
 
   const handleLogin = () => {
@@ -27,6 +38,11 @@ const Login = ({isShow = false, onClose}: IProps) => {
 
   const handleOAuthGithub = () => {
     
+  }
+
+  // 倒计时==0关闭
+  const handleOnEnd = () => {
+    setIsShowVerifyCode(false);
   }
 
   return (
@@ -39,11 +55,15 @@ const Login = ({isShow = false, onClose}: IProps) => {
             </div>
             <div className={styles.close} onClick={handleClose}>x</div>
           </div>
-          <input name="phone" type="text" placeholder="请输入手机号" value={form.phone} />
+          <input name="phone" type="text" placeholder="请输入手机号" value={form.phone} onChange={handleFormChange} />
 
           <div className={styles.verifyCodeArea}>
-            <input name="verify" type="text" placeholder="请输入验证码" value={form.verify} />
-            <span className={styles.verifyCode} onClick={handleGetVerifyCode}>获取验证码</span>
+            <input name="verify" type="text" placeholder="请输入验证码" value={form.verify} onChange={handleFormChange} />
+            <span className={styles.verifyCode} onClick={handleGetVerifyCode}>
+              {
+                isShowVerifyCode ? <CountDown time={60} onEnd={handleOnEnd} /> : '获取验证码'
+              }
+            </span>
           </div>
 
           <div className={styles.loginBtn} onClick={handleLogin}>登录</div>
