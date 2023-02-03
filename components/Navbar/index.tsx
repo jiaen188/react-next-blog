@@ -1,11 +1,28 @@
+import { useState } from "react";
+import {Button} from 'antd'
 import type { NextPage } from "next";
-import styles from './index.module.scss'
-import {navs} from './config'
 import Link from "next/link";
 import { useRouter } from "next/router";
+import styles from './index.module.scss'
+import {navs} from './config'
+import Login from 'components/Login'
 
 const Navbar: NextPage = () => {
   const {pathname} = useRouter()
+
+  const [isShowLogin, setIsShowLogin] = useState(false)
+
+  const handleViewEdit = () => {
+
+  }
+
+  const handleLogin = () => {
+    setIsShowLogin(true)
+  }
+
+  const handleClose = () => {
+    setIsShowLogin(false)
+  }
 
   return (
     <div className={styles.navbar}>
@@ -17,6 +34,11 @@ const Navbar: NextPage = () => {
           ))
         }
       </section>
+      <section className={styles.operationArea}>
+        <Button onClick={handleViewEdit}>写文章</Button>
+        <Button type="primary" onClick={handleLogin}>登陆</Button>
+      </section>
+      <Login isShow={isShowLogin} onClose={handleClose}></Login>
     </div>
   )
 }
