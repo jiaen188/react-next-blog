@@ -1,6 +1,8 @@
 import {ChangeEvent, useState} from 'react';
+import {message} from 'antd'
 import styles from './index.module.scss';
 import CountDown from 'components/CountDown';
+import request from 'service/fetch'
 
 interface IProps {
   isShow: boolean;
@@ -27,9 +29,18 @@ const Login = ({isShow = false, onClose}: IProps) => {
   const handleClose = () => {
     onClose && onClose();
   }
-
+  // 获取验证码
   const handleGetVerifyCode = () => {
     setIsShowVerifyCode(true);
+
+    if (!form?.phone) {
+      message.warning('请输入手机号');
+      return;
+    }
+
+    request.post('/api/user/sendVerifyCode');
+
+    // setIsShowVerifyCode(true);
   }
 
   const handleLogin = () => {
