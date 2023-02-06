@@ -29,6 +29,7 @@ const Login = ({isShow = false, onClose}: IProps) => {
   const handleClose = () => {
     onClose && onClose();
   }
+
   // 获取验证码
   const handleGetVerifyCode = () => {
     setIsShowVerifyCode(true);
@@ -38,9 +39,17 @@ const Login = ({isShow = false, onClose}: IProps) => {
       return;
     }
 
-    request.post('/api/user/sendVerifyCode');
-
-    // setIsShowVerifyCode(true);
+    request.post('/api/user/sendVerifyCode', {
+      to: form?.phone,
+      templateId: 1
+    }).then((res: any) => {
+      console.log(res);
+      if (res?.code === 0) {
+        setIsShowVerifyCode(true);
+      } else {
+        message?.error(res?.message || '未知错误');
+      }
+    });
   }
 
   const handleLogin = () => {
