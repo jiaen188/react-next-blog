@@ -1,26 +1,23 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { User } from './user';
+import {BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {User} from './user';
 
 @Entity({name: 'user_auths'})
-
 export class UserAuth extends BaseEntity {
   @PrimaryGeneratedColumn()
-  readonly id!:number
-
-  @Column()
-  identity_type!: string
-
-  @Column()
-  identifier!: string
-
-  @Column()
-  credential!: string
+  readonly id!: number;
 
   @ManyToOne(() => User, {
-    cascde: true
+    cascade: true,
   })
-
   @JoinColumn({name: 'user_id'})
-  user!: User
-  
+  user!: User;
+
+  @Column()
+  identity_type!: string;
+
+  @Column()
+  identifier!: string;
+
+  @Column()
+  credential!: string;
 }

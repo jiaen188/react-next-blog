@@ -1,9 +1,3 @@
-
-
 export default function Home() {
-  return (
-    <>
-      首页
-    </>
-  )
+  return <>首页</>;
 }
