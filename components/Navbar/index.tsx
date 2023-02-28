@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Button, Dropdown, Avatar, Menu} from 'antd';
+import {Button, Dropdown, Avatar, Menu, message} from 'antd';
 import {LogoutOutlined, HomeOutlined, UserOutlined} from '@ant-design/icons';
 import type {NextPage} from 'next';
 import Link from 'next/link';
@@ -8,6 +8,8 @@ import styles from './index.module.scss';
 import {navs} from './config';
 import Login from 'components/Login';
 import {useStore} from 'store';
+import request from 'service/fetch';
+import {observer} from 'mobx-react-lite';
 
 const Navbar: NextPage = () => {
   const store = useStore();
@@ -26,8 +28,13 @@ const Navbar: NextPage = () => {
     setIsShowLogin(false);
   };
 
-  const handleLogout = () => {
-    store.user.setUserInfo({});
+  const handleLogout = async () => {
+    const res = await request<null, BaseDataResponse<null>>('/api/user/logout');
+    if (res.code === 0) {
+      store.user.setUserInfo({});
+    } else {
+      message.error(res.msg || '退出登录失败，请重试');
+    }
   };
 
   const handleProfile = () => {
@@ -75,4 +82,4 @@ const Navbar: NextPage = () => {
   );
 };
 
-export default Navbar;
+export default observer(Navbar);

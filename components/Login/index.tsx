@@ -4,6 +4,8 @@ import styles from './index.module.scss';
 import CountDown from 'components/CountDown';
 import request from 'service/fetch';
 import {useStore} from 'store';
+// 使用useStore的组件，都用  observer 包裹一下，保证响应式
+import {observer} from 'mobx-react-lite';
 
 interface IProps {
   isShow: boolean;
@@ -44,7 +46,7 @@ const Login = ({isShow = false, onClose}: IProps) => {
     }
 
     request
-      .post('/api/user/sendVerifyCode', {
+      .post<{to: string; templateId: number}, BaseDataResponse<string>>('/api/user/sendVerifyCode', {
         to: form?.phone,
         templateId: 1,
       })
@@ -120,4 +122,4 @@ const Login = ({isShow = false, onClose}: IProps) => {
   ) : null;
 };
 
-export default Login;
+export default observer(Login);
