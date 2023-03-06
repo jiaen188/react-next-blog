@@ -6,6 +6,7 @@ import {prepareConnection} from 'db/index';
 import {User, UserAuth} from 'db/entity/index';
 import {ISession} from 'pages/api/index';
 import {setCookie} from 'utils/cookie';
+import {DefaultImage} from 'utils/constant';
 
 async function login(req: NextApiRequest, res: NextApiResponse) {
   const cookie = Cookie.fromApiRoute(req, res);
@@ -52,7 +53,7 @@ async function login(req: NextApiRequest, res: NextApiResponse) {
       // 新用户
       const user = new User();
       user.nickname = `用户_${Math.floor(Math.random() * 10000)}`;
-      user.avatar = '/images/avatar.jpg';
+      user.avatar = DefaultImage;
       user.job = '暂无';
       user.introduce = '暂无';
 

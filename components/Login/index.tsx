@@ -6,6 +6,7 @@ import request from 'service/fetch';
 import {useStore} from 'store';
 // 使用useStore的组件，都用  observer 包裹一下，保证响应式
 import {observer} from 'mobx-react-lite';
+import {GithubCallbackUrl} from 'utils/constant';
 
 interface IProps {
   isShow: boolean;
@@ -77,7 +78,9 @@ const Login = ({isShow = false, onClose}: IProps) => {
       });
   };
 
-  const handleOAuthGithub = () => {};
+  const handleOAuthGithub = () => {
+    window.open(GithubCallbackUrl);
+  };
 
   // 倒计时==0关闭
   const handleOnEnd = () => {
