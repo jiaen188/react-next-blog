@@ -22,7 +22,7 @@ export default function App({initialValue, Component, pageProps}: IProps) {
 App.getInitialProps = async ({ctx}: {ctx: any}) => {
   // 这里也可以去请求接口拿到数据 初始化页面数据
   // https://www.nextjs.cn/docs/api-reference/data-fetching/getInitialProps
-  const {userId, nickname, avatar} = ctx.req.cookies;
+  const {userId = '', nickname = '', avatar = ''} = ctx?.req?.cookies || {};
   return {
     // initialValue 会被自动注入到 Page App 的props里面，刷新页面时候也可以自动更新登录态
     initialValue: {
