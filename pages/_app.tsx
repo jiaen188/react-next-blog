@@ -5,18 +5,24 @@ import {NextPage} from 'next';
 
 interface IProps {
   initialValue: Record<any, any>;
-  Component: NextPage;
+  Component: NextPage & {layout: any};
   pageProps: any;
 }
 
 export default function App({initialValue, Component, pageProps}: IProps) {
-  return (
-    <StoreProvider initialValue={initialValue}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </StoreProvider>
-  );
+  const renderLayout = () => {
+    if (Component.layout === null) {
+      return <Component {...pageProps} />;
+    } else {
+      return (
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      );
+    }
+  };
+
+  return <StoreProvider initialValue={initialValue}>{renderLayout()}</StoreProvider>;
 }
 
 App.getInitialProps = async ({ctx}: {ctx: any}) => {

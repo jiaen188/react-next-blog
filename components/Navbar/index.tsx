@@ -14,11 +14,17 @@ import {observer} from 'mobx-react-lite';
 const Navbar: NextPage = () => {
   const store = useStore();
   const {userId, avatar, nickname} = store.user.userInfo;
-  const {pathname} = useRouter();
+  const {pathname, push} = useRouter();
 
   const [isShowLogin, setIsShowLogin] = useState(false);
 
-  const handleViewEdit = () => {};
+  const handleViewEdit = () => {
+    if (!userId) {
+      message.warn('请先登录');
+    } else {
+      push('/editor/new');
+    }
+  };
 
   const handleLogin = () => {
     setIsShowLogin(true);
@@ -38,7 +44,7 @@ const Navbar: NextPage = () => {
   };
 
   const handleProfile = () => {
-    // todo 去个人主页
+    push(`/user/${userId}`);
   };
 
   const DropDownMenu = (
