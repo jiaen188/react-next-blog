@@ -2,9 +2,8 @@ import type {NextApiRequest, NextApiResponse} from 'next';
 import {withIronSessionApiRoute} from 'iron-session/next';
 import {ironOptions} from 'config/index';
 import {ISession} from 'pages/api/index';
-import {setCookie} from 'utils/cookie';
 import {prepareConnection} from 'db/index';
-import {Articles, User, UserAuth} from 'db/entity';
+import {Articles, User} from 'db/entity';
 
 async function publish(req: NextApiRequest, res: NextApiResponse<BaseDataResponse<any>>) {
   const session: ISession = req.session;

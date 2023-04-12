@@ -9,8 +9,8 @@ import styles from './index.module.scss';
 import {Input, Button, message} from 'antd';
 import request from 'service/fetch';
 import {useRouter} from 'next/router';
-import { useStore } from 'store';
-import { observer } from 'mobx-react-lite';
+import {useStore} from 'store';
+import {observer} from 'mobx-react-lite';
 
 const MDEditor = dynamic<MDEditorProps>(() => import('@uiw/react-md-editor'), {ssr: false});
 
@@ -19,7 +19,7 @@ const NewEditor: NextPage = () => {
   const [title, setTitle] = useState('');
 
   const {push} = useRouter();
-  const store = useStore()
+  const store = useStore();
 
   const handlePublish = async () => {
     if (!title) {
